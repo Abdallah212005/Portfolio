@@ -37,6 +37,7 @@ html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
+  min-height: 100vh;
   background:
     radial-gradient(ellipse at 15% 0%, rgba(179,32,31,0.12), transparent 45%),
     var(--ink);
@@ -198,6 +199,13 @@ nav {
   align-items: center;
   justify-content: space-between;
   gap: 1.5rem;
+  opacity: 0;
+  animation: nav-in .7s ease .05s forwards;
+}
+
+@keyframes nav-in {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
 }
 
 .brand {
@@ -401,7 +409,11 @@ main { max-width: 1180px; margin: 0 auto; padding: 0 1.5rem; }
 .photo-frame__tape--tr { top: -10px; right: -14px; transform: rotate(35deg); }
 .photo-frame__tape--br { bottom: -10px; right: -14px; transform: rotate(-40deg); }
 
-.hero__frame { will-change: transform; }
+.hero__frame {
+  will-change: transform;
+  opacity: 0;
+  animation: fadeInElements 900ms ease 340ms forwards;
+}
 
 .frame-slap {
   opacity: 0;
@@ -467,20 +479,42 @@ main { max-width: 1180px; margin: 0 auto; padding: 0 1.5rem; }
   86%  { transform: rotate(9deg) scale(0.99); }
   100% { opacity: 0.7; transform: rotate(12deg) scale(1); }
 }
+
+@keyframes fadeInElements {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .photo-frame--big { --tilt: 4deg; width: 260px; }
 .photo-frame--small { --tilt: -3deg; width: 200px; }
 .photo-frame--card { --tilt: -2deg; width: 100%; margin-bottom: 1.25rem; }
 .photo-frame--card .photo-frame__window { aspect-ratio: 16 / 10; }
 
 .hero {
-  min-height: 78vh;
+  min-height: 100vh;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 3rem;
   flex-wrap: wrap;
   padding-top: 3rem;
+  padding-bottom: 3rem;
+  padding-left: max(1.5rem, calc((100vw - 1180px) / 2 + 1.5rem));
+  padding-right: max(1.5rem, calc((100vw - 1180px) / 2 + 1.5rem));
+  box-sizing: border-box;
   position: relative;
+  background:
+    radial-gradient(ellipse at 15% 0%, rgba(179,32,31,0.12), transparent 45%),
+    url("hero.png") center center / cover no-repeat;
 }
 
 .hero__stamp {
@@ -500,14 +534,19 @@ main { max-width: 1180px; margin: 0 auto; padding: 0 1.5rem; }
   justify-content: center;
   text-align: center;
   transform: rotate(12deg);
-  opacity: 0.7;
+  opacity: 0;
+  animation: fadeInElements 900ms ease 260ms forwards;
 }
 
 .hero__stamp.is-slammed {
   animation: stamp-seal 0.85s cubic-bezier(.3,1.6,.4,1) 0.35s both;
 }
 
-.hero__text { max-width: 620px; }
+.hero__text {
+  max-width: 620px;
+  opacity: 0;
+  animation: fadeInElements 900ms ease 120ms forwards;
+}
 
 .hero__eyebrow {
   display: block;
@@ -646,7 +685,7 @@ footer {
 @media (max-width: 720px) {
   nav { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
   nav ul { gap: 1.1rem; flex-wrap: wrap; }
-  .hero { min-height: auto; padding-top: 2rem; padding-bottom: 2rem; }
+  .hero { min-height: 100vh; padding-top: 2rem; padding-bottom: 2rem; }
   .hero__stamp { display: none; }
   .about { flex-direction: column; }
   .services__item { border-right: none; }
@@ -659,8 +698,7 @@ footer {
 .hero__tag,
 .hero__actions {
   opacity: 0;
-  transform: translateY(24px);
-  animation: hero-copy-in .8s cubic-bezier(.16,.84,.24,1) forwards;
+  animation: hero-copy-in .8s ease forwards;
 }
 .hero__eyebrow { animation-delay: .12s; }
 .hero__title   { animation-delay: .24s; }
@@ -668,9 +706,8 @@ footer {
 .hero__actions { animation-delay: .56s; }
 
 @keyframes hero-copy-in {
-  0% { opacity: 0; transform: translateY(24px); filter: blur(8px); }
-  65% { opacity: 1; filter: blur(0); }
-  100% { opacity: 1; transform: translateY(0); }
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
 }
 
 .reveal,
@@ -761,6 +798,7 @@ footer {
   .hero__tag,
   .hero__actions,
   .tape-marquee,
+  nav,
   .section-title.is-revealed {
     animation: none !important;
     opacity: 1 !important;
@@ -774,7 +812,7 @@ footer {
 <body>
     <div class="grain"></div>
     <div class="tape-marquee"><div class="tape-marquee__track">
-        <span>باصي سجارة يا قلب اخوك</span><span>★</span><span>سيجارتين فرط كابتن بلاك</span><span>★</span><span>ستينج</span><span>★</span><span>العين صابتني و رب العرش نجاني</span><span>★</span><span>سيجارتين فرط كابتن بلاك</span><span>★</span><span>ستينج</span><span>★</span>
+        <span>باصي سجارة يا قلب اخوك</span><span>★</span><span>سيجارتين فرط كابتن بلاك</span><span>★</span><span>ستينج</span><span>★</span><span>العين صابتني و رب العرش نجاني</span><span>★</span><span>سيجارتين فرط كابتن بلاك</span><span>★</span><span>ستينج</span><span>★</span><span>ما القلب ياما انظلم</span><span>★</span><span>يفيد بإيه الندم</span><span>★</span><span>مش عيب الوسامة دي تروح لشركة تانية</span><span>★</span>
     </div></div>
     <div class="scroll-progress" aria-hidden="true"><div class="scroll-progress__fill"></div></div>
 
@@ -805,7 +843,7 @@ footer {
             </div>
             <div class="hero__frame photo-frame photo-frame--big frame-slap frame-slap--hero" aria-hidden="false">
                 <div class="photo-frame__window">
-                    <img src="" alt="Abdallah Amr" onerror="this.style.display='none'">
+                    <img src="hero portrait.png" alt="Abdallah Amr" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" onload="this.nextElementSibling.style.display='none';">
                     <span class="photo-frame__placeholder">DROP PHOTO HERE</span>
                 </div>
                 <span class="photo-frame__tape photo-frame__tape--tl"></span>
