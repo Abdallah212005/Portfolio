@@ -411,8 +411,6 @@ main { max-width: 1180px; margin: 0 auto; padding: 0 1.5rem; }
 
 .hero__frame {
   will-change: transform;
-  opacity: 0;
-  animation: fadeInElements 900ms ease 340ms forwards;
 }
 
 .frame-slap {
@@ -1188,9 +1186,6 @@ footer {
 
         if (el.classList.contains("frame-slap")) {
           el.classList.add("is-slammed");
-          el.addEventListener("animationend", function () {
-            el.classList.remove("is-slammed");
-          }, { once: true });
         }
 
         observer.unobserve(el);
@@ -1222,15 +1217,6 @@ footer {
       if (heroStamp) heroStamp.classList.add("is-slammed");
     }, 700);
 
-    heroFrame.addEventListener("animationend", function () {
-      heroFrame.classList.remove("is-slammed");
-    }, { once: true });
-
-    if (heroStamp) {
-      heroStamp.addEventListener("animationend", function () {
-        heroStamp.classList.remove("is-slammed");
-      }, { once: true });
-    }
   }
 
   var hero = document.querySelector(".hero");
