@@ -33,7 +33,7 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-x: clip; }
 
 body {
   margin: 0;
@@ -691,7 +691,7 @@ main { max-width: 1180px; margin: 0 auto; padding: 0 1.5rem; }
 
 .portfolio__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
   gap: 2.5rem;
 }
 
@@ -891,37 +891,35 @@ footer {
   }
 
   nav {
-    min-height: 58px;
-    padding: .72rem var(--mobile-gutter);
+    min-height: 0;
+    padding: .55rem var(--mobile-gutter) .4rem;
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: .8rem;
+    flex-direction: column;
+    align-items: stretch;
+    gap: .2rem;
   }
 
   .brand {
-    flex: 0 0 auto;
     font-size: 1.08rem;
     letter-spacing: .01em;
   }
 
   nav ul {
     min-width: 0;
-    flex: 1 1 auto;
     display: flex;
-    justify-content: flex-end;
-    flex-wrap: nowrap;
-    gap: 1rem;
-    overflow-x: auto;
-    scrollbar-width: none;
-    font-size: .68rem;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: .1rem .65rem;
+    overflow: visible;
+    font-size: .7rem;
     letter-spacing: .04em;
-    white-space: nowrap;
+    white-space: normal;
   }
-  nav ul::-webkit-scrollbar { display: none; }
-  nav ul a { padding: .55rem 0; }
+  nav ul a { display: inline-flex; align-items: center; min-height: 40px; padding: .35rem 0; }
 
   main { padding: 0 var(--mobile-gutter); }
+
+  .technology__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; }
 
   .hero {
     width: auto;
@@ -1039,6 +1037,24 @@ footer {
   .contact .btn { width: 100%; justify-content: center; min-height: 54px; }
 
   footer { margin-top: 3rem; padding: 1.5rem 0 2.4rem; font-size: .68rem; }
+
+  .reveal-peel { transform: translateY(14px); }
+  .reveal-peel.is-visible { transform: translateY(0); }
+
+  .reveal-stagger--stamp > *,
+  .reveal-stagger--slap > * { transform: translateY(14px) scale(1) rotate(0); }
+  .reveal-stagger--stamp.is-visible > *,
+  .reveal-stagger--slap.is-visible > * { transform: translateY(0) scale(1) rotate(0); }
+
+  .frame-slap.is-slammed {
+    animation: mobile-frame-slam .6s cubic-bezier(.2,.7,.2,1) both;
+  }
+
+  @keyframes mobile-frame-slam {
+    0% { opacity: 0; transform: translate(18px, -18px) rotate(calc(var(--tilt) - 6deg)) scale(1.04); }
+    55% { opacity: 1; transform: translate(-2px, 2px) rotate(calc(var(--tilt) + 2deg)) scale(1); }
+    100% { opacity: 1; transform: translate(0, 0) rotate(var(--tilt)) scale(1); }
+  }
 }
 
 @media (max-width: 380px) {
